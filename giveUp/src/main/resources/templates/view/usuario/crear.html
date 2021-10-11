@@ -1,0 +1,59 @@
+<div class="container" style="font-size: 2rem;">
+
+    <div class="row justify-content-center">
+
+        <form action="" enctype="application/x-www-form-urlencoded" method="post" class="col-12">
+            <div class="form-group">
+
+                <label for="nombre">Nombre</label>
+    
+                <input class="form-control" type="text" name="nombre" id="name">
+    
+            </div>
+    
+            <div class="form-group">
+    
+                <label for="nick">Nick</label>
+    
+                <input class="form-control" type="text" name="nick" id="nick">
+    
+            </div>
+
+            <div class="form-group">
+    
+                <label for="pwd">Contraseña</label>
+    
+                <input class="form-control" type="password" name="pwd" id="pwd">
+    
+            </div>
+    
+            <div class="form-group">
+    
+                <label for="email">Email</label>
+    
+                <input class="form-control" type="email" name="email" id="email">
+    
+            </div>
+            
+            <div class="form-group">
+    			
+    			<label for="dependencias">Dependencias</label>
+    			<!-- aqui TODO -->
+    			<tr th:each=dependencia:${dependencias}>
+				<td th:text="${dependencia.nombre}"></td>
+                <input type="checkbox" name="dependencias" th:value="${dependencia.id}"/>
+    			</tr>
+    			</div>
+                
+    
+            </div>
+
+            <div class="col-12 d-flex justify-content-end">
+                <input type="submit" value="unirse" class="btn btn-primary" style="font-size: 2rem;">
+            </div>
+            
+        </form>
+
+    </div>
+
+</div>

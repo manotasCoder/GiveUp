@@ -1,0 +1,37 @@
+<div class="container">
+<h1>Lista de dependencias</h1>
+
+<table class="table table-striped">
+<thead class="thead-dark">
+<tr>
+<th class="col">Dependencia</th>
+<th class="col">acción</th>
+</tr>
+</thead>
+
+<tr th:each=dependencia:${dependencias}>
+<td th:text="${dependencia.nombre}"></td>
+
+
+<td>
+
+<form action="/dependencia/actualizar" method="GET">
+<input type="hidden" name="id" th:value="${dependencia.id}"/>
+<button type="submit">
+<img alt="edit" src="/assets/img/edit.png" width="50px"/>
+</button>
+</form>
+
+<form action="/dependencia/eliminar" method="POST">
+<input type="hidden" name="id" th:value="${dependencia.id}"/>
+<button type="submit">
+<img alt="delete" src="/assets/img/delete.png" width="50px"/>
+</button>
+</form>
+
+</td>
+</tr>
+
+</table>
+
+</div>

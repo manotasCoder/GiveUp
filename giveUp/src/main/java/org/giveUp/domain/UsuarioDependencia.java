@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
@@ -23,23 +24,24 @@ public class UsuarioDependencia {
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private long id;
 
-		@ManyToOne(fetch = FetchType.LAZY)
-    	@MapsId("usuarioId")
-		private Long usuario;
+		@ManyToOne
+		@JoinColumn(name="usuario_id", nullable=false)
+		private Usuario usuario;
 		
-		@ManyToOne(fetch = FetchType.LAZY)
-	    @MapsId("dependenciaId")
-		private Long dependencia;
+		@ManyToOne
+		@JoinColumn(name="dependencia_id", nullable=false)
+		private Dependencia dependencia;
 		
 		@Column(name = "empezado_en")
-		private Date fechaInicio = new Date();
+		private Date fechaInicio;
 
 		public UsuarioDependencia() {
 		}
 		
-		public UsuarioDependencia(Long usuario, Long dependencia) {
+		public UsuarioDependencia(Usuario usuario, Dependencia dependencia) {
 			this.usuario = usuario;
 			this.dependencia = dependencia;
+			this.fechaInicio = new Date();
 		}
 
 		public long getId() {
@@ -50,19 +52,19 @@ public class UsuarioDependencia {
 			this.id = id;
 		}
 
-		public Long getUsuario() {
+		public Usuario getUsuario() {
 			return usuario;
 		}
 
-		public void setUsuario(Long usuario) {
+		public void setUsuario(Usuario usuario) {
 			this.usuario = usuario;
 		}
 
-		public Long getDependencia() {
+		public Dependencia getDependencia() {
 			return dependencia;
 		}
 
-		public void setDependencia(Long dependencia) {
+		public void setDependencia(Dependencia dependencia) {
 			this.dependencia = dependencia;
 		}
 
@@ -74,26 +76,6 @@ public class UsuarioDependencia {
 			this.fechaInicio = fechaInicio;
 		}
 		
-	
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-        	return true;
-        }
- 
-        if (o == null || getClass() != o.getClass()) {
-        	return false;	
-        }
- 
-        UsuarioDependencia that = (UsuarioDependencia) o;
-        return Objects.equals(usuario, that.usuario) &&
-               Objects.equals(dependencia, that.dependencia);
-    }
- 
-    @Override
-    public int hashCode() {
-        return Objects.hash(usuario, dependencia);
-    }
 	
 	
 }

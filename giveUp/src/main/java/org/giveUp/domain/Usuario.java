@@ -32,18 +32,8 @@ public class Usuario {
 	
 	private String email;
 	
-	@OneToMany(
-	        mappedBy = "usuario",
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
-	    )
-	private List<UsuarioDependencia> dependencias2 = new ArrayList<>();
-	
-	@ManyToMany
-	private Collection<Dependencia> dependencias;
-	
-	@ManyToMany
-	private Collection veces;
+	@OneToMany(mappedBy = "usuario")
+	private List<UsuarioDependencia> dependencias = new ArrayList<>();
 	
 	//================
 
@@ -53,17 +43,16 @@ public class Usuario {
 		this.pwd = (new BCryptPasswordEncoder().encode(pwd));
 
 		this.email = email;
-		this.dependencias = new ArrayList<Dependencia>();
-		this.dependencias2 = new ArrayList<UsuarioDependencia>();
+		this.dependencias = new ArrayList<UsuarioDependencia>();
 	}
 	
 	
-	public List<UsuarioDependencia> getDependencias2() {
-		return dependencias2;
+	public List<UsuarioDependencia> getDependencias() {
+		return dependencias;
 	}
 
-	public void setDependencias2(List<UsuarioDependencia> dependencias2) {
-		this.dependencias2 = dependencias2;
+	public void setDependencias(List<UsuarioDependencia> dependencias) {
+		this.dependencias = dependencias;
 	}
 
 	public long getId() {
@@ -105,25 +94,5 @@ public class Usuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public Collection<Dependencia> getDependencias() {
-		return dependencias;
-	}
-
-	public void setDependencias(Collection<Dependencia> dependencias) {
-		this.dependencias = dependencias;
-	}
-
-	public Collection getVeces() {
-		return veces;
-	}
-
-	public void setVeces(Collection veces) {
-		this.veces = veces;
-	}
-	
-	
-	
-	
 	
 }

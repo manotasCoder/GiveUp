@@ -32,26 +32,17 @@ public class Dependencia {
 	        orphanRemoval = true
 			)
 	private List<UsuarioDependencia> dependencias = new ArrayList<>();
-	
-	@ManyToMany(mappedBy="fechas")
-	private Collection<Date> tiempos;
-	
-	@ManyToMany(mappedBy = "dependencias")
-	private Collection<Usuario> dependientes;
+
 
 	//===============
 	
 	public Dependencia() {
-		this.dependientes = new ArrayList<Usuario>();
-		this.tiempos = new ArrayList<Date>();
 		this.dependencias = new ArrayList<UsuarioDependencia>();
 	}
 	
 	public Dependencia(String nombre, String descripcion) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.dependientes = new ArrayList<Usuario>();
-		this.tiempos = new ArrayList<Date>();
 		this.dependencias = new ArrayList<UsuarioDependencia>();
 	}
 
@@ -89,21 +80,14 @@ public class Dependencia {
 		this.descripcion = descripcion;
 	}
 
-	public Collection<Usuario> getDependientes() {
-		return dependientes;
+	@Override
+	public String toString() {
+		return "Dependencia [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", dependencias="
+				+ dependencias + "]";
 	}
+	
+	
 
-	public void setDependientes(Collection<Usuario> dependientes) {
-		this.dependientes = dependientes;
-	}
-
-	public Collection<Date> getTiempos() {
-		return tiempos;
-	}
-
-	public void setTiempos(Collection<Date> tiempos) {
-		this.tiempos = tiempos;
-	}
 	
 	
 }

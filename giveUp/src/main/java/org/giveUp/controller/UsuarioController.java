@@ -7,8 +7,10 @@ import java.util.List;
 
 import org.giveUp.domain.Dependencia;
 import org.giveUp.domain.Usuario;
+import org.giveUp.domain.UsuarioDependencia;
 import org.giveUp.repositories.RepositoryDependencia;
 import org.giveUp.repositories.RepositoryUsuario;
+import org.giveUp.repositories.RepositoryUsuarioDependencia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,6 +28,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private RepositoryDependencia repoDependencia;
+	
+	@Autowired
+	private RepositoryUsuarioDependencia repoUsuarioDependencia;
 	
 	@GetMapping("/crear")
 	public String crear(ModelMap m) {
@@ -49,11 +54,16 @@ public class UsuarioController {
 		
 		try {
 			Usuario usuario = new Usuario(nombre, nick, pwd, email);
-			dependencias = (dependencias == null?new ArrayList<Long>():dependencias);
+			if (dependencias == null) {
+				new ArrayList<Long>();
+			}
 			for (Long idDependencia : dependencias) {
 				Dependencia dependencia = repoDependencia.getById(idDependencia);
-				dependencia.getDependientes().add(usuario);
-				usuario.getDependencias().add(dependencia);
+				System.out.println(dependencia.toString());
+				UsuarioDependencia usuDep = new UsuarioDependencia(usuario, dependencia);
+				repoUsuarioDependencia.save(usuDep);
+//				dependencia.getDependientes().add(usuario);
+//				usuario.getDependencias().add(dependencia);
 				
 //				Date now = new Date();
 //				Collection<Date> tiempos = dependencia.getTiempos();
@@ -64,7 +74,6 @@ public class UsuarioController {
 //				veces.add(empieza);
 //				usuario.getVeces().add(veces);
 			}
-			repoUsuario.save(usuario);
 			
 		} catch (Exception e) {
 			System.out.println("error en crear persona");		}
